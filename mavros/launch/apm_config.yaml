@@ -16,7 +16,7 @@ conn:
 # sys_status
 sys:
   min_voltage: 10.0   # diagnostics min voltage, use a vector i.e. [16.2, 16.0] for multiple batteries, up-to 10 are supported
-                      # to achieve the same on a ROS launch file do: <rosparam param="sys/min_voltage">[16.2, 16.0]</rosparam>
+  # to achieve the same on a ROS launch file do: <rosparam param="sys/min_voltage">[16.2, 16.0]</rosparam>
   disable_diag: false # disable all sys_status diagnostics, except heartbeat
 
 # sys_time
@@ -47,12 +47,12 @@ cmd:
 # global_position
 global_position:
   frame_id: "map"             # origin frame
-  child_frame_id: "base_link" # body-fixed frame
+  child_frame_id: "global_position" # body-fixed frame
   rot_covariance: 99999.0   # covariance for attitude?
   gps_uere: 1.0             # User Equivalent Range Error (UERE) of GPS sensor (m)
   use_relative_alt: true    # use relative altitude for local coordinates
   tf:
-    send: false               # send TF?
+    send: true               # send TF?
     frame_id: "map"  # TF frame_id
     global_frame_id: "earth"  # TF earth frame_id
     child_frame_id: "base_link" # TF child_frame_id
@@ -112,7 +112,7 @@ setpoint_position:
     child_frame_id: "target_position"
     rate_limit: 50.0
   mav_frame: LOCAL_NED
- 
+
 # guided_target
 guided_target:
   tf:
@@ -132,8 +132,8 @@ setpoint_velocity:
 mission:
   pull_after_gcs: true  # update mission if gcs updates
   use_mission_item_int: true # use the MISSION_ITEM_INT message instead of MISSION_ITEM
-                             # for uploading waypoints to FCU
-                             
+    # for uploading waypoints to FCU
+
 # --- mavros extras plugins (same order) ---
 
 # adsb
@@ -166,11 +166,12 @@ image:
 # fake_gps
 fake_gps:
   # select data source
-  use_mocap: true         # ~mocap/pose
+  use_mocap: false         # ~mocap/pose
   mocap_transform: false  # ~mocap/tf instead of pose
   mocap_withcovariance: false  # ~mocap/pose uses PoseWithCovarianceStamped Message
   use_vision: false       # ~vision (pose)
-  use_hil_gps: true
+  use_hil_gps: false
+  use_gazebo_states: true
   gps_id: 4
   # origin (default: Zürich)
   geo_origin:
@@ -188,9 +189,9 @@ fake_gps:
     listen: false
     send: false           # send TF?
     frame_id: "map"       # TF frame_id
-    child_frame_id: "fix" # TF child_frame_id
+    child_frame_id: "base_link" # TF child_frame_id
     rate_limit: 10.0      # TF rate
-  gps_rate: 5.0           # GPS data publishing rate
+  gps_rate: 20.0           # GPS data publishing rate
 
 # landing_target
 landing_target:
@@ -204,7 +205,7 @@ landing_target:
     fov_x: 2.0071286398   # default: 115 [degrees]
     fov_y: 2.0071286398
   tf:
-    send: true
+    send: false
     listen: false
     frame_id: "landing_target"
     child_frame_id: "camera_center"
@@ -215,7 +216,7 @@ landing_target:
 mocap:
   # select mocap source
   use_tf: false   # ~mocap/tf
-  use_pose: true  # ~mocap/pose
+  use_pose: false  # ~mocap/pose
 
 # mount_control
 mount:
@@ -267,7 +268,7 @@ wheel_odometry:
   child_frame_id: "base_link" # body-fixed frame
   vel_error: 0.1              # wheel velocity measurement error 1-std (m/s)
   tf:
-    send: true
+    send: false
     frame_id: "map"
     child_frame_id: "base_link"
 
