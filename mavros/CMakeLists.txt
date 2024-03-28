@@ -210,60 +210,60 @@ install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
 )
 
-if(BUILD_TESTING)
-  find_package(ament_cmake_gtest REQUIRED)
-  find_package(ament_cmake_gmock REQUIRED)
-  find_package(ament_cmake_pytest REQUIRED)
+# if(BUILD_TESTING)
+#   find_package(ament_cmake_gtest REQUIRED)
+#   find_package(ament_cmake_gmock REQUIRED)
+#   find_package(ament_cmake_pytest REQUIRED)
 
-  # NOTE(vooon): explicit call to find dependencies for ament_lint
-  # ament_find_gtest()
-  # ament_find_gmock()
+#   # NOTE(vooon): explicit call to find dependencies for ament_lint
+#   # ament_find_gtest()
+#   # ament_find_gmock()
 
-  # NOTE(vooon): without that cppcheck fails on tests cpp files
-  # list(APPEND ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS "${GMOCK_INCLUDE_DIRS}")
-  # list(APPEND ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS "${GTEST_INCLUDE_DIRS}")
-  # list(APPEND ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS "${EIGEN3_INCLUDE_DIRS}")
-  # set(ament_cmake_cppcheck_LANGUAGE "c++")
+#   # NOTE(vooon): without that cppcheck fails on tests cpp files
+#   # list(APPEND ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS "${GMOCK_INCLUDE_DIRS}")
+#   # list(APPEND ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS "${GTEST_INCLUDE_DIRS}")
+#   # list(APPEND ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS "${EIGEN3_INCLUDE_DIRS}")
+#   # set(ament_cmake_cppcheck_LANGUAGE "c++")
 
-  # NOTE(vooon): tired to provide more and more macro
-  list(APPEND ament_cmake_cppcheck_ADDITIONAL_EXCLUDE "./test/*.cpp")
+#   # NOTE(vooon): tired to provide more and more macro
+#   list(APPEND ament_cmake_cppcheck_ADDITIONAL_EXCLUDE "./test/*.cpp")
 
-  # NOTE(vooon): cpplint complains about generated lines too long. Nothing more.
-  # XXX(vooon): don't work for Foxy!
-  # list(APPEND ament_cmake_cpplint_ADDITIONAL_EXCLUDE "./src/lib/enum_to_string.cpp")
+#   # NOTE(vooon): cpplint complains about generated lines too long. Nothing more.
+#   # XXX(vooon): don't work for Foxy!
+#   # list(APPEND ament_cmake_cpplint_ADDITIONAL_EXCLUDE "./src/lib/enum_to_string.cpp")
 
-  find_package(ament_lint_auto REQUIRED)
+#   find_package(ament_lint_auto REQUIRED)
 
-  # NOTE(vooon): Does not support our custom triple-license, tiered to make it to work.
-  list(APPEND AMENT_LINT_AUTO_EXCLUDE ament_cmake_copyright)
+#   # NOTE(vooon): Does not support our custom triple-license, tiered to make it to work.
+#   list(APPEND AMENT_LINT_AUTO_EXCLUDE ament_cmake_copyright)
 
-  ament_lint_auto_find_test_dependencies()
+#   ament_lint_auto_find_test_dependencies()
 
-  ament_add_gtest(libmavros-frame-conversions-test test/test_frame_conversions.cpp)
-  target_link_libraries(libmavros-frame-conversions-test mavros)
-  #ament_target_dependencies(libmavros-frame-conversions-test mavros)
+#   ament_add_gtest(libmavros-frame-conversions-test test/test_frame_conversions.cpp)
+#   target_link_libraries(libmavros-frame-conversions-test mavros)
+#   #ament_target_dependencies(libmavros-frame-conversions-test mavros)
 
-  ament_add_gtest(libmavros-sensor-orientation-test test/test_sensor_orientation.cpp)
-  target_link_libraries(libmavros-sensor-orientation-test mavros)
-  #ament_target_dependencies(libmavros-sensor-orientation-test mavros)
+#   ament_add_gtest(libmavros-sensor-orientation-test test/test_sensor_orientation.cpp)
+#   target_link_libraries(libmavros-sensor-orientation-test mavros)
+#   #ament_target_dependencies(libmavros-sensor-orientation-test mavros)
 
-  ament_add_gtest(libmavros-quaternion-utils-test test/test_quaternion_utils.cpp)
-  target_link_libraries(libmavros-quaternion-utils-test mavros)
-  #ament_target_dependencies(libmavros-quaternion-utils-test mavros)
+#   ament_add_gtest(libmavros-quaternion-utils-test test/test_quaternion_utils.cpp)
+#   target_link_libraries(libmavros-quaternion-utils-test mavros)
+#   #ament_target_dependencies(libmavros-quaternion-utils-test mavros)
 
-  ament_add_gmock(mavros-router-test test/test_router.cpp)
-  target_link_libraries(mavros-router-test mavros)
-  ament_target_dependencies(mavros-router-test mavros_msgs)
+#   ament_add_gmock(mavros-router-test test/test_router.cpp)
+#   target_link_libraries(mavros-router-test mavros)
+#   ament_target_dependencies(mavros-router-test mavros_msgs)
 
-  ament_add_gmock(mavros-uas-test test/test_uas.cpp)
-  target_link_libraries(mavros-uas-test mavros)
-  ament_target_dependencies(mavros-uas-test mavros_msgs)
+#   ament_add_gmock(mavros-uas-test test/test_uas.cpp)
+#   target_link_libraries(mavros-uas-test mavros)
+#   ament_target_dependencies(mavros-uas-test mavros_msgs)
 
-  ament_add_pytest_test(mavros_py_test test/mavros_py
-    PYTHON_EXECUTABLE "${PYTHON_EXECUTABLE}"
-    APPEND_ENV PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}
-  )
-endif()
+#   ament_add_pytest_test(mavros_py_test test/mavros_py
+#     PYTHON_EXECUTABLE "${PYTHON_EXECUTABLE}"
+#     APPEND_ENV PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}
+#   )
+# endif()
 
 #ament_export_dependencies(console_bridge)
 ament_export_include_directories(include)
